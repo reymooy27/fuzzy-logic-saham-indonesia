@@ -2,7 +2,7 @@ import { createChart, ColorType} from 'lightweight-charts';
 import React, { useEffect, useRef, useState } from 'react';
 
 const ChartComponent = (props) => {
-	const {data} = props;
+	const {data, isLoading} = props;
 
   const [currentCandle,setCurrentCandle] = useState()
 	const chartContainerRef = useRef(null);
@@ -63,21 +63,26 @@ const ChartComponent = (props) => {
       chart.unsubscribeCrosshairMove(subscribeCrosshair)
       chart.remove();
     };
-  },[data,]);
+  },[data, isLoading]);
 
 	return (
-		<div className='w-full h-full'
-			ref={chartContainerRef}
-		>
-      <div className='absolute top-[10px] left-[10px] z-10 bg-slate-400 rounded-md p-4'>
-        <h1>{data[0]?.code}</h1>        
-        <p>Open : {currentCandle?.open}</p>
-        <p>Close : {currentCandle?.close}</p>
-        <p>High : {currentCandle?.high}</p>
-        <p>Low : {currentCandle?.low}</p>
-        <p>{currentCandle?.time}</p>
+    <>
+    {isLoading && chartContainerRef!== null ? <div>Loading...</div> : 
+      <div className='w-full h-full'
+        ref={chartContainerRef}
+      >
+        <div className='absolute top-[10px] left-[10px] z-10 bg-slate-400 rounded-md p-4'>
+          <h1>{data[0]?.name} (<b>{data[0]?.code}</b>)</h1>        
+          <h1>{data[0]?.sector}</h1>        
+          <p>Open : {currentCandle?.open}</p>
+          <p>Close : {currentCandle?.close}</p>
+          <p>High : {currentCandle?.high}</p>
+          <p>Low : {currentCandle?.low}</p>
+          <p>{currentCandle?.time}</p>
+        </div>
       </div>
-    </div>
+}
+    </>
 	);
 };
 
