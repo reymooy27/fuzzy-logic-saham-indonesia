@@ -74,6 +74,30 @@ const macdCheck = ()=>{
   setMacdCrossover(!macdCrossover)
   setMarkerActive(!markerActive)
 }
+// console.log(data)
+const insigth = (data)=>{
+  let res = ''
+  const today = data[data?.length-1]
+  if(today?.Entry_Position > 30 & today?.Exit_Position < today?.Entry_Position){
+    res = `Saham cenderung mengalami kenaikan. Bisa beli direntang harga ${today.RollingMin} - ${today.Close + (today.Close * 0.01)}`
+  }else if(today?.Entry_Position > 50 & today?.Exit_Position < today?.Entry_Position){
+    res = `Saham akan mengalami kenaikan. Bisa beli direntang harga ${today.RollingMin} - ${today.Close + (today.Close * 0.01)}`
+  }
+  else if(today?.Entry_Position < 30 & today?.Exit_Position <= today?.Entry_Position){
+    res = 'Hold position'
+  }else if(today?.Exit_Position > 30 & today?.Entry_Position < today?.Exit_Position){
+    res = `Saham cenderung mengalami penurunan. Bisa jual direntang harga ${today.Close} - ${today.RollingMax}`
+  }else if(today?.Exit_Position > 50 & today?.Entry_Position < today?.Exit_Position){
+    res = `Saham akan mengalami penurunan. Bisa jual direntang harga ${today.Close} - ${today.RollingMax}`
+  }else{
+    res ='Hold Position'
+  }
+
+
+
+  return res
+
+}
 
 	return (
     <div className='relative w-screen h-screen'>
@@ -87,7 +111,7 @@ const macdCheck = ()=>{
           <span>Marker</span>
           <input type="checkbox" name="" id="" onChange={()=> setMarkerActive(!markerActive)} checked={markerActive}/>
         </div>
-        <div className='flex gap-2 border border-black rounded bg-slate-400 p-3'>
+        {/* <div className='flex gap-2 border border-black rounded bg-slate-400 p-3'>
           <span>MACD Crossover</span>
           <input type="checkbox" name="" id="" onChange={macdCheck} checked={macdCrossover}/>
         </div>
@@ -98,7 +122,10 @@ const macdCheck = ()=>{
         <div className='flex gap-2 border border-black rounded bg-slate-400 p-3'>
           <span>Exit Value</span>
           <input type="text" name="" id="" value={exitValue} onChange={e=> setExitValue(e.target.value)}/>
-        </div>
+        </div> */}
+      </div>
+      <div className='bg-slate-400 rounded absolute bottom-[10px] right-[80px] z-10 flex flex-col gap-2 w-[300px] h-[100px] p-3'>
+        {insigth(data)}
       </div>
       <Suspense fallback={<div>Loading...</div>}>
         <ChartComponent 

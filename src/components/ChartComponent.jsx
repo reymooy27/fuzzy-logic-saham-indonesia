@@ -31,7 +31,7 @@ const ChartComponent = (props) => {
         horzLines: { color: "#444" },
       },
       crosshair: {
-        mode: 1,
+        mode: 0,
         vertLine: {
             width: 8,
             color: '#C3BCDB44',
