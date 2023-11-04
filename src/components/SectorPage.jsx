@@ -22,7 +22,7 @@ export default function SectorPage() {
 
   return (
     <div className="p-3">
-    <div className="font-bold">Jumlah Saham : {dataSaham.length}</div>
+    <div className="font-bold text-white">Jumlah Saham : {dataSaham.length}</div>
       <div className="w-full h-full flex gap-3">
         <SectorCard sector={'Healthcare'} data={dataSaham}/>
         <SectorCard sector={'Financials'} data={dataSaham}/>
@@ -54,10 +54,10 @@ const SectorCard = ({data, sector})=>{
   }
 
   return(
-    <div className="w-[200px] h-fit rounded border border-black p-4 bg-grey flex flex-col gap-1">
-      <h1 className="font-bold">{sector}</h1>
+    <div className="w-[200px] h-fit rounded border border-black p-4 bg-slate-400 flex flex-col gap-1">
+      <h1 className="font-bold text-black">{sector}</h1>
       {filteredData(sector).map(saham=>(
-        <Link key={saham.id} className="underline w-fit" to={`/stock/${saham.code}`}>{saham.code}</Link>
+        <Link key={saham.id} className="underline w-fit text-black" to={`/stock/${saham.code}`}>{saham.code}</Link>
       ))}
     </div>
 )

@@ -15,7 +15,7 @@ const Home = ()=>{
   const [markerActive, setMarkerActive] = useState(true);
   const [macdCrossover, setMacdCrossover] = useState(false);
   const [entryValue, setEntryValue] = useState(50);
-  const [exitValue, setExitValue] = useState(40);
+  const [exitValue, setExitValue] = useState(50);
 
   const [isLoading, setIsLoading] = useState(false);
   
@@ -79,16 +79,16 @@ const insigth = (data)=>{
   let res = ''
   const today = data[data?.length-1]
   if(today?.Entry_Position > 30 & today?.Exit_Position < today?.Entry_Position){
-    res = `Saham cenderung mengalami kenaikan. Bisa beli direntang harga ${today.RollingMin} - ${today.Close + (today.Close * 0.01)}`
+    res = `Saham cenderung mengalami kenaikan untuk beberapa hari kedepan. Bisa beli direntang harga ${today.RollingMin} - ${today.Close + (today.Close * 0.01)}`
   }else if(today?.Entry_Position > 50 & today?.Exit_Position < today?.Entry_Position){
-    res = `Saham akan mengalami kenaikan. Bisa beli direntang harga ${today.RollingMin} - ${today.Close + (today.Close * 0.01)}`
+    res = `Saham akan mengalami kenaikan untuk beberapa hari kedepan. Bisa beli direntang harga ${today.RollingMin} - ${today.Close + (today.Close * 0.01)}`
   }
   else if(today?.Entry_Position < 30 & today?.Exit_Position <= today?.Entry_Position){
     res = 'Hold position'
   }else if(today?.Exit_Position > 30 & today?.Entry_Position < today?.Exit_Position){
-    res = `Saham cenderung mengalami penurunan. Bisa jual direntang harga ${today.Close} - ${today.RollingMax}`
+    res = `Saham cenderung mengalami penurunan untuk beberapa hari kedepan. Bisa jual direntang harga ${today.Close} - ${today.RollingMax}`
   }else if(today?.Exit_Position > 50 & today?.Entry_Position < today?.Exit_Position){
-    res = `Saham akan mengalami penurunan. Bisa jual direntang harga ${today.Close} - ${today.RollingMax}`
+    res = `Saham akan mengalami penurunan untuk beberapa hari kedepan. Bisa jual direntang harga ${today.Close} - ${today.RollingMax}`
   }else{
     res ='Hold Position'
   }
@@ -124,7 +124,7 @@ const insigth = (data)=>{
           <input type="text" name="" id="" value={exitValue} onChange={e=> setExitValue(e.target.value)}/>
         </div> */}
       </div>
-      <div className='bg-slate-400 rounded absolute bottom-[10px] right-[80px] z-10 flex flex-col gap-2 w-[300px] h-[100px] p-3'>
+      <div className='bg-slate-400 rounded absolute bottom-[10px] right-[80px] z-10 flex flex-col gap-2 w-[300px] h-[150px] p-3'>
         {insigth(data)}
       </div>
       <Suspense fallback={<div>Loading...</div>}>
